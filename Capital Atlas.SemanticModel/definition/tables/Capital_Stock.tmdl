@@ -1,0 +1,116 @@
+table Capital_Stock
+	lineageTag: 51af42e9-d239-4027-a5a0-5e2984f171ca
+
+	column 'Area Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ceb9cfe-fe35-40a2-84cf-ed157d309312
+		summarizeBy: none
+		sourceColumn: Area Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Area Code (M49)'
+		dataType: string
+		lineageTag: 1364533e-b00d-4703-93ba-6616476e0e36
+		summarizeBy: none
+		sourceColumn: Area Code (M49)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		dataType: string
+		lineageTag: dde2428d-db00-48f7-a2ef-b5692b5e94bb
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: 877f7fda-5b58-4d97-b6e5-bdd18eb53ff3
+		summarizeBy: count
+		sourceColumn: Item Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item
+		dataType: string
+		lineageTag: 9738dc17-39e3-4a2c-94c4-8c91c85409fb
+		summarizeBy: none
+		sourceColumn: Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Element Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7cb34e71-6c9a-4e7b-aac9-dd3570304939
+		summarizeBy: count
+		sourceColumn: Element Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Element
+		dataType: string
+		lineageTag: f1b4adb7-a582-440b-9495-8e59fc0c730f
+		summarizeBy: none
+		sourceColumn: Element
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 8930d605-77db-47b5-b00c-c9b88c066795
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 518f76b9-b835-4a8a-b844-044acb9c0470
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 349cd363-2779-46a9-965c-6afcc28990b7
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Flag
+		dataType: string
+		lineageTag: 1aed6cf1-e06b-484d-94b1-a5d0cffd6613
+		summarizeBy: none
+		sourceColumn: Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Start'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 9adbf53d-0093-4179-96e6-bccefa801042
+		summarizeBy: none
+		sourceColumn: Year Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Capital_Stock = m
+		mode: import
+		source = ReadFaostat("Investment_CapitalStock_E_All_Data_(Normalized).csv")
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,21 @@
+// Expected snapshot counts: 144944 capital rows, 708632 macro rows, 252 areas.
+// Expected Morocco 2022: 2705.743517 investment, 30908.237741 stock,
+// and 0.11785911 sector GDP share. Dollar measures are in million 2015 USD.
+EVALUATE
+VAR Morocco2022 =
+    CALCULATETABLE (
+        ROW (
+            "Investment", [Sector Fixed Investment (2015 USD millions)],
+            "Net Capital Stock", [Sector Net Capital Stock (2015 USD millions)],
+            "Sector GDP Share", [Sector Share of GDP %]
+        ),
+        Geography[Area] = "Morocco",
+        'Calendar'[Year] = 2022
+    )
+RETURN
+    ADDCOLUMNS (
+        Morocco2022,
+        "Capital Rows", COUNTROWS ( Capital_Stock ),
+        "Macro Rows", COUNTROWS ( Key_Indicators ),
+        "Areas", COUNTROWS ( Geography )
+    )

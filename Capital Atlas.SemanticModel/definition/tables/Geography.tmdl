@@ -1,0 +1,93 @@
+table Geography
+	lineageTag: 41e7f63d-36ce-4d50-a3d1-23c587a33951
+
+	column 'Area Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: c8059f2f-fe11-40bd-b34c-ba9a964640ed
+		summarizeBy: none
+		sourceColumn: Area Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Area Code (M49)'
+		dataType: string
+		lineageTag: b95fd7b4-91b6-4cde-b4d8-aa3a23252f32
+		summarizeBy: none
+		sourceColumn: Area Code (M49)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		dataType: string
+		lineageTag: 6432b976-d985-4940-8ce9-5fbc368bdcbb
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'area_flags.Flag Image URL'
+		dataType: string
+		lineageTag: 719d1dbf-4763-4f26-9402-d37a52288078
+		summarizeBy: none
+		sourceColumn: area_flags.Flag Image URL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Area Type'
+		dataType: string
+		lineageTag: 376791e8-77ad-4ed6-a038-3b2a9b7b3350
+		summarizeBy: none
+		sourceColumn: Area Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Area Display Name'
+		dataType: string
+		lineageTag: 479726a9-0c59-492f-aad1-5096ce920b85
+		summarizeBy: none
+		sourceColumn: Area Display Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Geography = m
+		mode: import
+		source =
+				let
+				    Source = Table.Combine({#"Capital_Stock (2)", #"Key_Indicators (2)"}),
+				    #"Doublons supprimés" = Table.Distinct(Source, {"Area Code"}),
+				    #"Requêtes fusionnées" = Table.NestedJoin(#"Doublons supprimés", {"Area"}, area_flags, {"Area"}, "area_flags", JoinKind.LeftOuter),
+				    #"area_flags développé" = Table.ExpandTableColumn(#"Requêtes fusionnées", "area_flags", {"Flag Image URL"}, {"area_flags.Flag Image URL"}),
+				    #"Personnalisée ajoutée" = Table.AddColumn(#"area_flags développé", "Area Type", each let
+				    Code = [#"Area Code (M49)"]
+				in
+				    if Code = "001" then "World"
+				    else if List.Contains(
+				        {"097", "199", "432", "722", "901", "902"}, Code
+				    ) then "Group"
+				    else if List.Contains(
+				        {"002", "014", "017", "015", "018", "011", "019", "021",
+				         "013", "029", "005", "142", "143", "030", "034", "035",
+				         "145", "150", "151", "154", "039", "155", "009", "053",
+				         "054", "057", "061"}, Code
+				    ) then "Region"
+				    else "Country"),
+				    #"Type modifié" = Table.TransformColumnTypes(#"Personnalisée ajoutée",{{"Area Type", type text}}),
+				    #"Personnalisée ajoutée1" = Table.AddColumn(#"Type modifié", "Area Display Name", each let
+				    DisplayNames = [
+				        #"Venezuela (Bolivarian Republic of)" = "Venezuela",
+				        #"Netherlands (Kingdom of the)" = "Netherlands",
+				        #"Micronesia (Federated States of)" = "Federated States of Micronesia",
+				        #"Iran (Islamic Republic of)" = "Iran",
+				        #"Bolivia (Plurinational State of)" = "Bolivia"
+				    ]
+				in
+				    Record.FieldOrDefault(DisplayNames, [Area], [Area])),
+				    #"Type modifié1" = Table.TransformColumnTypes(#"Personnalisée ajoutée1",{{"Area Display Name", type text}})
+				in
+				    #"Type modifié1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

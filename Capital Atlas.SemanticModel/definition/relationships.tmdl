@@ -1,0 +1,16 @@
+relationship AutoDetected_e336bbf9-e14f-4a72-96eb-ecd34ebaba8d
+	fromColumn: Capital_Stock.'Area Code'
+	toColumn: Geography.'Area Code'
+
+relationship AutoDetected_3b9592b8-770f-43fe-9559-1bd502b3bd54
+	fromColumn: Key_Indicators.'Area Code'
+	toColumn: Geography.'Area Code'
+
+relationship 69dcaf93-5666-9413-9355-73eadb06adf9
+	fromColumn: Capital_Stock.'Year Start'
+	toColumn: Calendar.Date
+
+relationship 2fc50f4e-6c50-b734-ffb0-046dd08348e6
+	fromColumn: Key_Indicators.'Year Start'
+	toColumn: Calendar.Date
+

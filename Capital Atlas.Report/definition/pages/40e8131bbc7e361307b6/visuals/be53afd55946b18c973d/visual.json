@@ -1,0 +1,238 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "be53afd55946b18c973d",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "width": 1472,
+    "height": 900,
+    "z": 1,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "CapitalAtlasInvestment9A62304970E24E43BB3FF1F6932736C8",
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "query": {
+      "queryState": {
+        "area": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Geography"
+                    }
+                  },
+                  "Property": "Area Display Name"
+                }
+              },
+              "queryRef": "Geography.Area Display Name",
+              "nativeQueryRef": "Area Display Name"
+            }
+          ]
+        },
+        "type": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Geography"
+                    }
+                  },
+                  "Property": "Area Type"
+                }
+              },
+              "queryRef": "Geography.Area Type",
+              "nativeQueryRef": "Area Type"
+            }
+          ]
+        },
+        "year": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calendar"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "Calendar.Year",
+              "nativeQueryRef": "Year"
+            }
+          ]
+        },
+        "inv": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_MEASURES"
+                    }
+                  },
+                  "Property": "Sector Fixed Investment (2015 USD millions)"
+                }
+              },
+              "queryRef": "_MEASURES.Sector Fixed Investment (2015 USD millions)",
+              "nativeQueryRef": "Sector Fixed Investment (2015 USD millions)"
+            }
+          ]
+        },
+        "dep": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_MEASURES"
+                    }
+                  },
+                  "Property": "Sector Consumption of Fixed Capital (2015 USD millions)"
+                }
+              },
+              "queryRef": "_MEASURES.Sector Consumption of Fixed Capital (2015 USD millions)",
+              "nativeQueryRef": "Sector Consumption of Fixed Capital (2015 USD millions)"
+            }
+          ]
+        },
+        "net": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_MEASURES"
+                    }
+                  },
+                  "Property": "Sector Net Fixed Investment (2015 USD millions)"
+                }
+              },
+              "queryRef": "_MEASURES.Sector Net Fixed Investment (2015 USD millions)",
+              "nativeQueryRef": "Sector Net Fixed Investment (2015 USD millions)"
+            }
+          ]
+        },
+        "stock": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_MEASURES"
+                    }
+                  },
+                  "Property": "Sector Net Capital Stock (2015 USD millions)"
+                }
+              },
+              "queryRef": "_MEASURES.Sector Net Capital Stock (2015 USD millions)",
+              "nativeQueryRef": "Sector Net Capital Stock (2015 USD millions)"
+            }
+          ]
+        },
+        "invY": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_MEASURES"
+                    }
+                  },
+                  "Property": "Sector Fixed Investment YoY %"
+                }
+              },
+              "queryRef": "_MEASURES.Sector Fixed Investment YoY %",
+              "nativeQueryRef": "Sector Fixed Investment YoY %"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

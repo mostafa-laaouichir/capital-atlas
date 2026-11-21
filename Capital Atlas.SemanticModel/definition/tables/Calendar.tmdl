@@ -1,0 +1,83 @@
+table Calendar
+	lineageTag: 3de8fe13-39ef-4f95-abfb-29cfe86f5aef
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: 1cbc13b3-d940-4df9-bfb0-408622549634
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: c621534a-eaf6-4710-af9f-e2bccc11830e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: 79d3d070-558d-4d5d-b901-5ad4eedcd12f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: f6379a7d-75d9-4b23-9954-6b4ac3b2e554
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month End'
+		formatString: General Date
+		lineageTag: c500f3d8-4000-408b-bfbc-298820d19b05
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month End]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Number'
+		formatString: 0
+		lineageTag: 11712be7-9066-4ed6-b10f-93d1edfb7991
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Week Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		lineageTag: abfb63d5-542e-4163-8e96-f11c50c3a769
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS (
+				    CALENDAR ( DATE ( 1970, 1, 1 ), DATE ( 2024, 12, 31 ) ),
+				    "Year", YEAR ( [Date] ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "MMMM", "en-US" ),
+				    "Month End", EOMONTH ( [Date], 0 ),
+				    "Week Number", WEEKNUM ( [Date], 2 ),
+				    "Week", "W" & FORMAT ( WEEKNUM ( [Date], 2 ), "00" )
+				)
+
+	annotation PBI_Id = 5198195a607e47e9b2a3c88aabd30890
+

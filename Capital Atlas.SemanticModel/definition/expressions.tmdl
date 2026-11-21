@@ -1,0 +1,47 @@
+expression DataFolder = "C:\FAOSTAT\CapitalAtlas" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 8e7dee1b-bd7a-4151-9a19-fefec261a636
+
+	annotation PBI_ResultType = Text
+
+expression SourcePath =
+		(FileName as text) as text =>
+		    Text.TrimEnd(DataFolder, {"\", "/"}) & "\" & FileName
+	lineageTag: d8a3c28f-14c3-473e-889d-afe6679a1f9c
+
+	annotation PBI_ResultType = Function
+
+expression ReadFaostat =
+		(FileName as text) as table =>
+		let
+		    Csv = Csv.Document(File.Contents(SourcePath(FileName)), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+		    Headers = Table.PromoteHeaders(Csv, [PromoteAllScalars=true]),
+		    Fields = Table.SelectColumns(Headers, {"Area Code", "Area Code (M49)", "Area", "Item Code", "Item", "Element Code", "Element", "Year", "Unit", "Value", "Flag"}),
+		    Typed = Table.TransformColumnTypes(Fields, {{"Area Code", Int64.Type}, {"Area Code (M49)", type text}, {"Area", type text}, {"Item Code", Int64.Type}, {"Item", type text}, {"Element Code", Int64.Type}, {"Element", type text}, {"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"Flag", type text}}, "en-US"),
+		    CleanCodes = Table.TransformColumns(Typed, {{"Area Code (M49)", each if _ = null then null else Text.TrimStart(_, "'"), type text}}),
+		    YearStart = Table.AddColumn(CleanCodes, "Year Start", each #date([Year], 1, 1), type date)
+		in
+		    YearStart
+	lineageTag: e4d1cfdd-e608-4bb8-891f-d46f53e44878
+
+	annotation PBI_ResultType = Function
+
+expression 'Capital_Stock (2)' = Table.Distinct(Table.SelectColumns(Capital_Stock, {"Area Code", "Area Code (M49)", "Area"}), {"Area Code"})
+	lineageTag: 4ac4d006-1ba1-4cff-adf5-1113410d3f0c
+
+	annotation PBI_ResultType = Table
+
+expression 'Key_Indicators (2)' = Table.Distinct(Table.SelectColumns(Key_Indicators, {"Area Code", "Area Code (M49)", "Area"}), {"Area Code"})
+	lineageTag: 4e9c0fee-90b8-44e8-97ee-21cfe69c0fd4
+
+	annotation PBI_ResultType = Table
+
+expression area_flags =
+		let
+		    Csv = Csv.Document(File.Contents(SourcePath("area_flags.csv")), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+		    Headers = Table.PromoteHeaders(Csv, [PromoteAllScalars=true])
+		in
+		    Table.TransformColumnTypes(Headers, {{"Area", type text}, {"Flag Image URL", type text}})
+	lineageTag: 541b93fb-92a5-4c49-abd3-1c42b7bedecf
+
+	annotation PBI_ResultType = Table
+

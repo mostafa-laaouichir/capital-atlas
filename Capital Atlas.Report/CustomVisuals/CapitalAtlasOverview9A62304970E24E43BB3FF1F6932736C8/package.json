@@ -1,0 +1,29 @@
+{
+  "version": "1.1.0.0",
+  "author": {
+    "name": "Mostafa Laaoucihir",
+    "email": ""
+  },
+  "visual": {
+    "name": "CapitalAtlasOverview9A62304970E24E43BB3FF1F6932736C8",
+    "displayName": "Capital Atlas Executive Overview",
+    "guid": "CapitalAtlasOverview9A62304970E24E43BB3FF1F6932736C8",
+    "visualClassName": "Visual",
+    "version": "1.1.0.0",
+    "description": "Capital Atlas Executive Overview for the FAOSTAT Power BI report.",
+    "supportUrl": "https://www.fao.org/faostat/",
+    "gitHubUrl": ""
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/CapitalAtlasOverview9A62304970E24E43BB3FF1F6932736C8.pbiviz.json"
+    }
+  ],
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

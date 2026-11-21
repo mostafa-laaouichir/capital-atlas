@@ -1,0 +1,490 @@
+table _MEASURES
+	lineageTag: 216bc7bd-9dca-4632-b00a-ba2a58eb8f29
+
+	measure 'Sector Fixed Investment (2015 USD millions)' = IF (HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]), CALCULATE (SELECTEDVALUE (Capital_Stock[Value]), Capital_Stock[Item] = "Gross Fixed Capital Formation (Agriculture, Forestry and Fishing)", Capital_Stock[Element] = "Value US$, 2015 prices"))
+		formatString: #,##0.00
+		lineageTag: a5f26610-b3aa-4486-b2e1-4e96c0f9ceb4
+
+	measure 'Sector Net Capital Stock (2015 USD millions)' = IF (HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]), CALCULATE (SELECTEDVALUE (Capital_Stock[Value]), Capital_Stock[Item] = "Net Capital Stocks (Agriculture, Forestry and Fishing)", Capital_Stock[Element] = "Value US$, 2015 prices"))
+		formatString: #,##0.00
+		lineageTag: 8bd1cc98-e29f-482d-8447-2b5a768f9ef0
+
+	measure 'Sector Share of GDP %' = IF (HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]), CALCULATE (DIVIDE (SELECTEDVALUE (Key_Indicators[Value]), 100), Key_Indicators[Item] = "Value Added (Agriculture, Forestry and Fishing)", Key_Indicators[Element] = "Share of GDP US$, 2015 prices"))
+		formatString: 0.00%
+		lineageTag: d6b98111-09ad-453a-a298-a14c1a7ea421
+
+	measure 'Sector Fixed Investment YoY %' =
+			VAR CurrentValue = [Sector Fixed Investment (2015 USD millions)]
+			VAR PriorValue = [Sector Fixed Investment Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        DIVIDE (CurrentValue - PriorValue, PriorValue)
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Investment and Assets\YoY
+		lineageTag: 8db09338-c82e-4403-8f3f-2704c93a2a11
+
+	measure 'Sector Fixed Investment Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Fixed Investment (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Investment and Assets\Prior Year
+		lineageTag: 74307188-a239-48fb-95f3-64f517fad778
+
+	measure 'Sector Fixed Investment YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [Sector Fixed Investment (2015 USD millions)]
+			VAR PriorValue = [Sector Fixed Investment Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Investment and Assets\YoY
+		lineageTag: 62a22e76-5d3b-44f7-9a9b-683f364a345d
+
+	measure 'Sector Consumption of Fixed Capital (2015 USD millions)' =
+			IF (
+			    HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]),
+			    CALCULATE (
+			        SELECTEDVALUE (Capital_Stock[Value]),
+			        Capital_Stock[Item] = "Consumption of Fixed Capital (Agriculture, Forestry and Fishing)",
+			        Capital_Stock[Element] = "Value US$, 2015 prices"
+			    )
+			)
+		formatString: #,##0.00
+		displayFolder: Investment and Assets
+		lineageTag: 34ad713a-d940-41ea-a2cc-d5a8ec3a11a4
+
+	measure 'Sector Consumption of Fixed Capital Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Consumption of Fixed Capital (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Investment and Assets\Prior Year
+		lineageTag: bb343cd9-94a7-4d21-b3a7-8ec56df1f3fe
+
+	measure 'Sector Consumption of Fixed Capital YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [Sector Consumption of Fixed Capital (2015 USD millions)]
+			VAR PriorValue = [Sector Consumption of Fixed Capital Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Investment and Assets\YoY
+		lineageTag: 6803665d-9642-433f-8297-8686a929b4d8
+
+	measure 'Sector Consumption of Fixed Capital YoY %' =
+			VAR CurrentValue = [Sector Consumption of Fixed Capital (2015 USD millions)]
+			VAR PriorValue = [Sector Consumption of Fixed Capital Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        DIVIDE (CurrentValue - PriorValue, PriorValue)
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Investment and Assets\YoY
+		lineageTag: 5aacde26-8609-4995-a2a4-7ef3514aa4b8
+
+	measure 'Sector Net Capital Stock Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Net Capital Stock (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Investment and Assets\Prior Year
+		lineageTag: c76da30c-724e-4686-809b-7f59058cf973
+
+	measure 'Sector Net Capital Stock YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [Sector Net Capital Stock (2015 USD millions)]
+			VAR PriorValue = [Sector Net Capital Stock Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Investment and Assets\YoY
+		lineageTag: 351194b4-5a27-47a9-9999-5ae7914f4a26
+
+	measure 'Sector Net Capital Stock YoY %' =
+			VAR CurrentValue = [Sector Net Capital Stock (2015 USD millions)]
+			VAR PriorValue = [Sector Net Capital Stock Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        DIVIDE (CurrentValue - PriorValue, PriorValue)
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Investment and Assets\YoY
+		lineageTag: c6bad8b6-4005-4ea6-a7aa-249f47891c85
+
+	measure 'Sector Net Fixed Investment (2015 USD millions)' =
+			VAR Investment = [Sector Fixed Investment (2015 USD millions)]
+			VAR Depreciation = [Sector Consumption of Fixed Capital (2015 USD millions)]
+			RETURN IF (NOT ISBLANK (Investment) && NOT ISBLANK (Depreciation), Investment - Depreciation)
+		formatString: #,##0.00
+		displayFolder: Investment and Assets
+		lineageTag: f55a1ae0-858c-4d89-8353-a34875339ca3
+
+	measure 'Sector Net Fixed Investment Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Net Fixed Investment (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Investment and Assets\Prior Year
+		lineageTag: 82b72b4e-cd21-4146-b6dd-20ae70cb7a6f
+
+	measure 'Sector Net Fixed Investment YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [Sector Net Fixed Investment (2015 USD millions)]
+			VAR PriorValue = [Sector Net Fixed Investment Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Investment and Assets\YoY
+		lineageTag: 0c2deb45-d2b2-484e-a934-d4c394aefa7b
+
+	measure 'Sector Value Added (2015 USD millions)' =
+			IF (
+			    HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]),
+			    CALCULATE (
+			        SELECTEDVALUE (Key_Indicators[Value]),
+			        Key_Indicators[Item] = "Value Added (Agriculture, Forestry and Fishing)",
+			        Key_Indicators[Element] = "Value US$, 2015 prices"
+			    )
+			)
+		formatString: #,##0.00
+		displayFolder: Economic Contribution
+		lineageTag: a184c804-bd12-48c0-8ebf-4d0430a849cb
+
+	measure 'Sector Value Added Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Value Added (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Economic Contribution\Prior Year
+		lineageTag: 73ed40c2-29a2-456c-8ebe-a5667ca4683f
+
+	measure 'Sector Value Added YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [Sector Value Added (2015 USD millions)]
+			VAR PriorValue = [Sector Value Added Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Economic Contribution\YoY
+		lineageTag: 8ec418b7-b439-4b0f-9e73-9e4698f0c598
+
+	measure 'Sector Value Added YoY %' =
+			VAR CurrentValue = [Sector Value Added (2015 USD millions)]
+			VAR PriorValue = [Sector Value Added Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        DIVIDE (CurrentValue - PriorValue, PriorValue)
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Economic Contribution\YoY
+		lineageTag: 3fa29642-b13a-4894-805f-c8f856495688
+
+	measure 'GDP (2015 USD millions)' =
+			IF (
+			    HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]),
+			    CALCULATE (
+			        SELECTEDVALUE (Key_Indicators[Value]),
+			        Key_Indicators[Item] = "Gross Domestic Product",
+			        Key_Indicators[Element] = "Value US$, 2015 prices"
+			    )
+			)
+		formatString: #,##0.00
+		displayFolder: Economic Contribution
+		lineageTag: 593c851f-7306-4b50-ba5e-982efa9795aa
+
+	measure 'GDP Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([GDP (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Economic Contribution\Prior Year
+		lineageTag: 71dc76a9-f57f-48d4-a630-8126aad1940d
+
+	measure 'GDP YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [GDP (2015 USD millions)]
+			VAR PriorValue = [GDP Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Economic Contribution\YoY
+		lineageTag: fc2b55bc-b6b3-4ccb-8f71-5f4722cb66de
+
+	measure 'GDP YoY %' =
+			VAR CurrentValue = [GDP (2015 USD millions)]
+			VAR PriorValue = [GDP Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        DIVIDE (CurrentValue - PriorValue, PriorValue)
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Economic Contribution\YoY
+		lineageTag: 310daa49-121d-4c71-8b8c-bc92072a1bb1
+
+	measure 'Economy Fixed Investment (2015 USD millions)' =
+			IF (
+			    HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]),
+			    CALCULATE (
+			        SELECTEDVALUE (Key_Indicators[Value]),
+			        Key_Indicators[Item] = "Gross Fixed Capital Formation",
+			        Key_Indicators[Element] = "Value US$, 2015 prices"
+			    )
+			)
+		formatString: #,##0.00
+		displayFolder: Economic Contribution
+		lineageTag: abcb7300-962e-46ce-93f8-c27bc5f31536
+
+	measure 'Economy Fixed Investment Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Economy Fixed Investment (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Economic Contribution\Prior Year
+		lineageTag: 581737cd-1862-45a5-86b7-c094b84bd97f
+
+	measure 'Economy Fixed Investment YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [Economy Fixed Investment (2015 USD millions)]
+			VAR PriorValue = [Economy Fixed Investment Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Economic Contribution\YoY
+		lineageTag: f99bcad0-bdc6-4267-805c-1d7bfc046ed2
+
+	measure 'Economy Fixed Investment YoY %' =
+			VAR CurrentValue = [Economy Fixed Investment (2015 USD millions)]
+			VAR PriorValue = [Economy Fixed Investment Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        DIVIDE (CurrentValue - PriorValue, PriorValue)
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Economic Contribution\YoY
+		lineageTag: f02bb1a4-4312-42f1-b9e4-89baac65a598
+
+	measure 'Food, Beverages and Tobacco Manufacturing Value Added (2015 USD millions)' =
+			IF (
+			    HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]),
+			    CALCULATE (
+			        SELECTEDVALUE (Key_Indicators[Value]),
+			        Key_Indicators[Item] = "Value Added (Manufacture of food, beverages and tobacco products)",
+			        Key_Indicators[Element] = "Value US$, 2015 prices"
+			    )
+			)
+		formatString: #,##0.00
+		displayFolder: Economic Contribution
+		lineageTag: 31a598fe-ff9e-4366-a8c3-76782b897b5e
+
+	measure 'Food, Beverages and Tobacco Manufacturing Value Added Prior Year (2015 USD millions)' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Food, Beverages and Tobacco Manufacturing Value Added (2015 USD millions)], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: #,##0.00
+		displayFolder: Economic Contribution\Prior Year
+		lineageTag: 75cbf3bc-2888-4736-872d-2d606e9f3cbb
+
+	measure 'Food, Beverages and Tobacco Manufacturing Value Added YoY Change (2015 USD millions)' =
+			VAR CurrentValue = [Food, Beverages and Tobacco Manufacturing Value Added (2015 USD millions)]
+			VAR PriorValue = [Food, Beverages and Tobacco Manufacturing Value Added Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +#,##0.00;-#,##0.00;#,##0.00
+		displayFolder: Economic Contribution\YoY
+		lineageTag: a1007cfe-1758-456a-9a72-0600ae8e31a2
+
+	measure 'Food, Beverages and Tobacco Manufacturing Value Added YoY %' =
+			VAR CurrentValue = [Food, Beverages and Tobacco Manufacturing Value Added (2015 USD millions)]
+			VAR PriorValue = [Food, Beverages and Tobacco Manufacturing Value Added Prior Year (2015 USD millions)]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        DIVIDE (CurrentValue - PriorValue, PriorValue)
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Economic Contribution\YoY
+		lineageTag: b4efa5b3-02ad-4cee-9fac-4cd59d667b93
+
+	measure 'Sector Share of GDP Prior Year %' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Share of GDP %], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: 0.00%
+		displayFolder: Economic Contribution\Prior Year
+		lineageTag: 5010cfdf-cd41-403f-b435-9236fd47fd85
+
+	measure 'Sector Share of GDP YoY Change (pp)' =
+			VAR CurrentValue = [Sector Share of GDP %]
+			VAR PriorValue = [Sector Share of GDP Prior Year %]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        (CurrentValue - PriorValue) * 100
+			    )
+		formatString: +0.00" pp";-0.00" pp";0.00" pp"
+		displayFolder: Economic Contribution\YoY
+		lineageTag: 101f2d5c-bc1c-45d6-a06b-a1370a2eb8fb
+
+	measure 'Sector Share of Total Fixed Investment %' =
+			IF (
+			    HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]),
+			    CALCULATE (
+			        DIVIDE (SELECTEDVALUE (Capital_Stock[Value]), 100),
+			        Capital_Stock[Item] = "Gross Fixed Capital Formation (Agriculture, Forestry and Fishing)",
+			        Capital_Stock[Element] = "Share of Gross Fixed Capital Formation US$, 2015 prices"
+			    )
+			)
+		formatString: 0.00%
+		displayFolder: Investment and Assets
+		lineageTag: 62805240-10d2-409d-a363-86191e362aed
+
+	measure 'Sector Share of Total Fixed Investment Prior Year %' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Share of Total Fixed Investment %], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: 0.00%
+		displayFolder: Investment and Assets\Prior Year
+		lineageTag: d6e0e53f-8238-4de8-ba43-2516bce2de0e
+
+	measure 'Sector Share of Total Fixed Investment YoY Change (pp)' =
+			VAR CurrentValue = [Sector Share of Total Fixed Investment %]
+			VAR PriorValue = [Sector Share of Total Fixed Investment Prior Year %]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        (CurrentValue - PriorValue) * 100
+			    )
+		formatString: +0.00" pp";-0.00" pp";0.00" pp"
+		displayFolder: Investment and Assets\YoY
+		lineageTag: a90cdb62-0228-4641-86a3-30e89bd96d30
+
+	measure 'Sector Investment Orientation Index' =
+			IF (
+			    HASONEVALUE (Geography[Area Code]) && HASONEVALUE ('Calendar'[Year]),
+			    CALCULATE (
+			        SELECTEDVALUE (Capital_Stock[Value]),
+			        Capital_Stock[Item] = "Gross Fixed Capital Formation (Agriculture, Forestry and Fishing)",
+			        Capital_Stock[Element] = "Agriculture orientation index US$, 2015 prices"
+			    )
+			)
+		formatString: 0.000
+		displayFolder: Investment and Assets
+		lineageTag: a9f2e271-754d-4dfe-a97f-7a5f9ddf112c
+
+	measure 'Sector Investment Orientation Index Prior Year' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Investment Orientation Index], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: 0.000
+		displayFolder: Investment and Assets\Prior Year
+		lineageTag: 6361c25c-2037-40d4-b322-76164b979a0c
+
+	measure 'Sector Investment Orientation Index YoY Change' =
+			VAR CurrentValue = [Sector Investment Orientation Index]
+			VAR PriorValue = [Sector Investment Orientation Index Prior Year]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +0.000;-0.000;0.000
+		displayFolder: Investment and Assets\YoY
+		lineageTag: b682e94e-b5bf-43df-a463-e8fb4694cf8b
+
+	measure 'Sector Value Added per Dollar of Net Capital Stock' = DIVIDE ([Sector Value Added (2015 USD millions)], [Sector Net Capital Stock (2015 USD millions)])
+		formatString: 0.000
+		displayFolder: Capital Productivity
+		lineageTag: af16df41-da3e-423f-8cb4-fd03930dd015
+
+	measure 'Sector Value Added per Dollar of Net Capital Stock Prior Year' =
+			VAR CurrentYear = SELECTEDVALUE ('Calendar'[Year])
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentYear),
+			        CALCULATE ([Sector Value Added per Dollar of Net Capital Stock], REMOVEFILTERS ('Calendar'), 'Calendar'[Year] = CurrentYear - 1)
+			    )
+		formatString: 0.000
+		displayFolder: Capital Productivity\Prior Year
+		lineageTag: 1898ed4f-cb77-4c8f-9579-77f505f90551
+
+	measure 'Sector Value Added per Dollar of Net Capital Stock YoY Change' =
+			VAR CurrentValue = [Sector Value Added per Dollar of Net Capital Stock]
+			VAR PriorValue = [Sector Value Added per Dollar of Net Capital Stock Prior Year]
+			RETURN
+			    IF (
+			        NOT ISBLANK (CurrentValue) && NOT ISBLANK (PriorValue),
+			        CurrentValue - PriorValue
+			    )
+		formatString: +0.000;-0.000;0.000
+		displayFolder: Capital Productivity\YoY
+		lineageTag: afb27dd8-d0ae-4c2a-83be-203247b94598
+
+	column Placeholder
+		dataType: int64
+		isHidden
+		lineageTag: 7e2912d5-3272-4106-ad9a-1ca06583aba0
+		summarizeBy: none
+		sourceColumn: Placeholder
+
+	partition _MEASURES = m
+		mode: import
+		source = #table(type table [Placeholder = Int64.Type], {{0}})
+

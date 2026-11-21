@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 121.62162162162163,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Capital_Stock",
+          "nodeLineageTag": "51af42e9-d239-4027-a5a0-5e2984f171ca",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 284,
+            "y": 0
+          },
+          "nodeIndex": "Key_Indicators",
+          "nodeLineageTag": "28fc6212-bd04-4e39-a524-f0058b0ab9b9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 482.8648648648649,
+            "y": 379.72972972972968
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "3de8fe13-39ef-4f95-abfb-29cfe86f5aef",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 965.51351351351354,
+            "y": 336.16216216216219
+          },
+          "nodeIndex": "Geography",
+          "nodeLineageTag": "41e7f63d-36ce-4d50-a3d1-23c587a33951",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 50
+          },
+          "nodeIndex": "_MEASURES",
+          "nodeLineageTag": "216bc7bd-9dca-4632-b00a-ba2a58eb8f29",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        }
+      ],
+      "name": "Toutes les tables",
+      "zoomValue": 74,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Toutes les tables",
+  "defaultDiagram": "Toutes les tables"
+}

@@ -1,0 +1,29 @@
+{
+  "version": "1.1.0.0",
+  "author": {
+    "name": "Mostafa Laaoucihir",
+    "email": ""
+  },
+  "visual": {
+    "name": "CapitalAtlasBenchmark9A62304970E24E43BB3FF1F6932736C8",
+    "displayName": "Capital Atlas Country Benchmarking",
+    "guid": "CapitalAtlasBenchmark9A62304970E24E43BB3FF1F6932736C8",
+    "visualClassName": "Visual",
+    "version": "1.1.0.0",
+    "description": "Capital Atlas Country Benchmarking for the FAOSTAT Power BI report.",
+    "supportUrl": "https://www.fao.org/faostat/",
+    "gitHubUrl": ""
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/CapitalAtlasBenchmark9A62304970E24E43BB3FF1F6932736C8.pbiviz.json"
+    }
+  ],
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}

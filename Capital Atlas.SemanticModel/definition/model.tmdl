@@ -1,0 +1,23 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-FR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["DataFolder","SourcePath","ReadFaostat","Capital_Stock","Key_Indicators","Capital_Stock (2)","Key_Indicators (2)","Geography","area_flags","_MEASURES"]
+
+annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop","DaxQueryView_Desktop"]
+
+ref table Capital_Stock
+ref table Key_Indicators
+ref table Calendar
+ref table Geography
+ref table _MEASURES
+
+ref cultureInfo fr-FR
+

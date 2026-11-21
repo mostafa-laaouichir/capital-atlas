@@ -1,0 +1,116 @@
+table Key_Indicators
+	lineageTag: 28fc6212-bd04-4e39-a524-f0058b0ab9b9
+
+	column 'Area Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: b87e82f9-97ba-4ebd-b506-64809efd201e
+		summarizeBy: none
+		sourceColumn: Area Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Area Code (M49)'
+		dataType: string
+		lineageTag: 8089f139-687b-4778-8c2b-cc4773fcea2c
+		summarizeBy: none
+		sourceColumn: Area Code (M49)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		dataType: string
+		lineageTag: 51aa5615-b4d4-4e82-97ea-69758a5f4f7e
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b309526-18f7-4e7e-ae8c-f9b604c79487
+		summarizeBy: count
+		sourceColumn: Item Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item
+		dataType: string
+		lineageTag: 1d7a595d-8cef-4301-b3b0-54bcc1ad54c4
+		summarizeBy: none
+		sourceColumn: Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Element Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: 27bad7d2-9497-44b3-b328-851b7cc39881
+		summarizeBy: count
+		sourceColumn: Element Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Element
+		dataType: string
+		lineageTag: bb14270c-05e7-472e-8f24-b18a6b99da18
+		summarizeBy: none
+		sourceColumn: Element
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e5e1142-ef35-4b33-9a99-8d6604578eb8
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 755f0dd8-8738-4eb3-8516-f8f90c0200ca
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: cfbf543f-6cb7-4dfc-9fee-4f9303b7e1c8
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Flag
+		dataType: string
+		lineageTag: 6cd61a49-50cc-4f6b-aff5-11bde436220c
+		summarizeBy: none
+		sourceColumn: Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Start'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4988f96b-297b-4ba0-ac3a-397a4bd345c3
+		summarizeBy: none
+		sourceColumn: Year Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Key_Indicators = m
+		mode: import
+		source = ReadFaostat("Macro-Statistics_Key_Indicators_E_All_Data_(Normalized).csv")
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
